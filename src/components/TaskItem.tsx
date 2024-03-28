@@ -16,7 +16,7 @@ export function TaskItem() {
         <button className="flex-shrink-0">
           <img
             src={trashCan}
-            alt="Trash can"
+            alt="TrashCan Icon"
             className="w-8 transition-all duration-200 hover:scale-[1.06]"
           />
         </button>

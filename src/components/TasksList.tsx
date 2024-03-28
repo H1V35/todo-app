@@ -4,7 +4,15 @@ export function TasksList() {
   return (
     <section className="max-h-[50vh] py-2 overflow-y-auto overflow-x-hidden">
       <ul className="flex flex-col gap-4">
-        <TaskItemSkeleton />
+        <TaskItem />
+        <TaskItem />
+        <TaskItem />
+        <TaskItem />
+        <TaskItem />
+        <TaskItem />
+        <TaskItem />
+        <TaskItem />
+        <TaskItem />
       </ul>
     </section>
   );
