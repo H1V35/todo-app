@@ -1,19 +1,26 @@
 import { TaskItem, TaskItemSkeleton } from '@/components/TaskItem';
+import type { Tasks } from '@/interfaces/task.interface';
 
-export function TasksList() {
+interface TasksList {
+  tasks: Tasks | undefined;
+  isLoading: boolean;
+  updateTasks: () => void;
+}
+
+export function TasksList({ tasks, isLoading, updateTasks }: TasksList) {
+  if (isLoading) {
+    return <TaskItemSkeleton loading />;
+  }
+
+  if (!tasks?.data.length) {
+    return <TaskItemSkeleton />;
+  }
+
   return (
-    <section className="max-h-[50vh] py-2 overflow-y-auto overflow-x-hidden">
-      <ul className="flex flex-col gap-4">
-        <TaskItem />
-        <TaskItem />
-        <TaskItem />
-        <TaskItem />
-        <TaskItem />
-        <TaskItem />
-        <TaskItem />
-        <TaskItem />
-        <TaskItem />
-      </ul>
-    </section>
+    <>
+      {tasks.data.map((task) => (
+        <TaskItem key={task._id} task={task} updateTasks={updateTasks} />
+      ))}
+    </>
   );
 }
