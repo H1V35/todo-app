@@ -21,21 +21,19 @@ export function useTasks() {
     updateTasks();
   };
 
-  const handleDeleteCompletedTasks = async () => {
-    await deleteCompletedTasks();
+  const handleToggleCompleteTask = async (task: Task) => {
+    await toggleCompleteTask(task._id);
     updateTasks();
   };
 
-  const taskHandlers = {
-    handleToggleCompleteTask: async (task: Task) => {
-      await toggleCompleteTask(task._id);
-      updateTasks();
-    },
+  const handleDeleteTask = async (task: Task) => {
+    await deleteTask(task._id);
+    updateTasks();
+  };
 
-    handleDeleteTask: async (task: Task) => {
-      await deleteTask(task._id);
-      updateTasks();
-    },
+  const handleDeleteCompletedTasks = async () => {
+    await deleteCompletedTasks();
+    updateTasks();
   };
 
   React.useEffect(() => {
@@ -49,8 +47,9 @@ export function useTasks() {
   return {
     tasks,
     isLoading,
-    taskHandlers,
     addTask,
+    handleToggleCompleteTask,
+    handleDeleteTask,
     handleDeleteCompletedTasks,
   };
 }

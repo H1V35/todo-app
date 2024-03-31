@@ -5,16 +5,11 @@ import type { Task } from '@/interfaces/task.interface';
 
 interface TaskItemProps {
   task: Task;
-  taskHandlers: {
-    handleToggleCompleteTask: (task: Task) => void;
-    handleDeleteTask: (task: Task) => void;
-  };
+  handleToggleCompleteTask: (task: Task) => void;
+  handleDeleteTask: (task: Task) => void;
 }
 
-export function TaskItem({
-  task,
-  taskHandlers: { handleToggleCompleteTask, handleDeleteTask },
-}: TaskItemProps) {
+export function TaskItem({ task, handleToggleCompleteTask, handleDeleteTask }: TaskItemProps) {
   return (
     <li className="w-full px-2 sm:px-4 flex flex-col gap-2">
       <div className="flex justify-between items-center gap-8">

@@ -4,7 +4,14 @@ import { TasksList } from '@/components/TasksList';
 import { TasksRemaining } from '@/components/TasksRemaining';
 
 export default function TodoApp() {
-  const { tasks, isLoading, taskHandlers, addTask, handleDeleteCompletedTasks } = useTasks();
+  const {
+    tasks,
+    isLoading,
+    addTask,
+    handleToggleCompleteTask,
+    handleDeleteTask,
+    handleDeleteCompletedTasks,
+  } = useTasks();
 
   return (
     <div className="h-screen w-screen max-w-[1280px] p-2 sm:p-4 flex justify-center items-center">
@@ -19,7 +26,12 @@ export default function TodoApp() {
 
             <section className="max-h-[50vh] py-2 overflow-y-auto overflow-x-hidden">
               <ul className="flex flex-col gap-4">
-                <TasksList tasks={tasks} isLoading={isLoading} taskHandlers={taskHandlers} />
+                <TasksList
+                  tasks={tasks}
+                  isLoading={isLoading}
+                  handleToggleCompleteTask={handleToggleCompleteTask}
+                  handleDeleteTask={handleDeleteTask}
+                />
               </ul>
             </section>
           </div>

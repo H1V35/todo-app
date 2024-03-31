@@ -4,13 +4,16 @@ import type { Task } from '@/interfaces/task.interface';
 interface TasksList {
   tasks: Task[];
   isLoading: boolean;
-  taskHandlers: {
-    handleToggleCompleteTask: (task: Task) => void;
-    handleDeleteTask: (task: Task) => void;
-  };
+  handleToggleCompleteTask: (task: Task) => void;
+  handleDeleteTask: (task: Task) => void;
 }
 
-export function TasksList({ tasks, isLoading, taskHandlers }: TasksList) {
+export function TasksList({
+  tasks,
+  isLoading,
+  handleToggleCompleteTask,
+  handleDeleteTask,
+}: TasksList) {
   if (!tasks.length && isLoading) {
     return <TaskItemSkeleton loading />;
   }
@@ -22,7 +25,12 @@ export function TasksList({ tasks, isLoading, taskHandlers }: TasksList) {
   return (
     <>
       {tasks.map((task) => (
-        <TaskItem key={task._id} task={task} taskHandlers={taskHandlers} />
+        <TaskItem
+          key={task._id}
+          task={task}
+          handleToggleCompleteTask={handleToggleCompleteTask}
+          handleDeleteTask={handleDeleteTask}
+        />
       ))}
     </>
   );
