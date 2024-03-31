@@ -1,11 +1,7 @@
-import type { Task } from '@/interfaces/task.interface';
+import { useTasksContext } from '@/hooks/useTasksContext';
 
-interface TasksRemainingProps {
-  tasks: Task[];
-  handleDeleteCompletedTasks: () => void;
-}
-
-export function TasksRemaining({ tasks, handleDeleteCompletedTasks }: TasksRemainingProps) {
+export function TasksRemaining() {
+  const { tasks, handleDeleteCompletedTasks } = useTasksContext();
   const incompletedTasks = tasks.filter((task) => !task.isCompleted).length;
   const hasCompletedTasks = tasks.some((task) => task.isCompleted);
 

@@ -1,19 +1,9 @@
+import { useTasksContext } from '@/hooks/useTasksContext';
 import { TaskItem, TaskItemSkeleton } from '@/components/TaskItem';
-import type { Task } from '@/interfaces/task.interface';
 
-interface TasksList {
-  tasks: Task[];
-  isLoading: boolean;
-  handleToggleCompleteTask: (task: Task) => void;
-  handleDeleteTask: (task: Task) => void;
-}
+export function TasksList() {
+  const { tasks, isLoading } = useTasksContext();
 
-export function TasksList({
-  tasks,
-  isLoading,
-  handleToggleCompleteTask,
-  handleDeleteTask,
-}: TasksList) {
   if (!tasks.length && isLoading) {
     return <TaskItemSkeleton loading />;
   }
@@ -25,12 +15,7 @@ export function TasksList({
   return (
     <>
       {tasks.map((task) => (
-        <TaskItem
-          key={task._id}
-          task={task}
-          handleToggleCompleteTask={handleToggleCompleteTask}
-          handleDeleteTask={handleDeleteTask}
-        />
+        <TaskItem key={task._id} task={task} />
       ))}
     </>
   );

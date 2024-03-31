@@ -1,15 +1,16 @@
+import { useTasksContext } from '@/hooks/useTasksContext';
 import check from '@/assets/icons/check.svg';
 import checked from '@/assets/icons/checked.svg';
 import trashCan from '@/assets/icons/trash-can.svg';
 import type { Task } from '@/interfaces/task.interface';
 
-interface TaskItemProps {
+type TaskItemProps = {
   task: Task;
-  handleToggleCompleteTask: (task: Task) => void;
-  handleDeleteTask: (task: Task) => void;
-}
+};
 
-export function TaskItem({ task, handleToggleCompleteTask, handleDeleteTask }: TaskItemProps) {
+export function TaskItem({ task }: TaskItemProps) {
+  const { handleToggleCompleteTask, handleDeleteTask } = useTasksContext();
+
   return (
     <li className="w-full px-2 sm:px-4 flex flex-col gap-2">
       <div className="flex justify-between items-center gap-8">

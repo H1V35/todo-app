@@ -1,12 +1,9 @@
 import React from 'react';
-import type { NewTaskData } from '@/interfaces/task.interface';
+import { useTasksContext } from '@/hooks/useTasksContext';
 
-interface TaskFormProps {
-  addTask: (task: NewTaskData) => void;
-}
-
-export function TaskForm({ addTask }: TaskFormProps) {
+export function TaskForm() {
   const [task, setTask] = React.useState({ name: '', description: '' });
+  const { addTask } = useTasksContext();
 
   const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
