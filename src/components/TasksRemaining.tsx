@@ -1,19 +1,13 @@
-import { deleteCompletedTasks } from '@/api/actions';
 import type { Task } from '@/interfaces/task.interface';
 
 interface TasksRemainingProps {
   tasks: Task[];
-  updateTasks: () => void;
+  handleDeleteCompletedTasks: () => void;
 }
 
-export function TasksRemaining({ tasks, updateTasks }: TasksRemainingProps) {
+export function TasksRemaining({ tasks, handleDeleteCompletedTasks }: TasksRemainingProps) {
   const incompletedTasks = tasks.filter((task) => !task.isCompleted).length;
   const hasCompletedTasks = tasks.some((task) => task.isCompleted);
-
-  const handleDeleteCompletedTasks = async () => {
-    await deleteCompletedTasks();
-    updateTasks();
-  };
 
   return (
     <footer className="h-12 ml-2 sm:ml-4 flex items-center justify-between gap-4">

@@ -1,11 +1,11 @@
 import React from 'react';
-import { createTask } from '@/api/actions';
+import type { NewTaskData } from '@/interfaces/task.interface';
 
 interface TaskFormProps {
-  updateTasks: () => void;
+  addTask: (task: NewTaskData) => void;
 }
 
-export function TaskForm({ updateTasks }: TaskFormProps) {
+export function TaskForm({ addTask }: TaskFormProps) {
   const [task, setTask] = React.useState({ name: '', description: '' });
 
   const handleFormSubmit = async (e: React.FormEvent) => {
@@ -17,8 +17,7 @@ export function TaskForm({ updateTasks }: TaskFormProps) {
       ...task,
     };
 
-    await createTask(newTask);
-    updateTasks();
+    addTask(newTask);
     setTask({ name: '', description: '' });
   };
 

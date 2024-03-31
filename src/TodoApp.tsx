@@ -1,26 +1,10 @@
-import React from 'react';
-import { getTasks } from '@/api/actions';
+import { useTasks } from '@/hooks/useTasks';
 import { TaskForm } from '@/components/TaskForm';
 import { TasksList } from '@/components/TasksList';
 import { TasksRemaining } from '@/components/TasksRemaining';
-import type { Task } from '@/interfaces/task.interface';
 
 export default function TodoApp() {
-  const [tasks, setTasks] = React.useState<Task[]>([]);
-  const [isLoading, setIsLoading] = React.useState(false);
-  // const [error, setError] = React.useState();
-
-  const updateTasks = async () => {
-    await getTasks().then(setTasks);
-  };
-
-  React.useEffect(() => {
-    (async () => {
-      setIsLoading(true);
-      updateTasks();
-      setIsLoading(false);
-    })();
-  }, []);
+  const { tasks, isLoading, taskHandlers, addTask, handleDeleteCompletedTasks } = useTasks();
 
   return (
     <div className="h-screen w-screen max-w-[1280px] p-2 sm:p-4 flex justify-center items-center">
@@ -31,16 +15,16 @@ export default function TodoApp() {
               <h1 className="text-4xl text-center">TODO App</h1>
             </header>
 
-            <TaskForm updateTasks={updateTasks} />
+            <TaskForm addTask={addTask} />
 
             <section className="max-h-[50vh] py-2 overflow-y-auto overflow-x-hidden">
               <ul className="flex flex-col gap-4">
-                <TasksList tasks={tasks} isLoading={isLoading} updateTasks={updateTasks} />
+                <TasksList tasks={tasks} isLoading={isLoading} taskHandlers={taskHandlers} />
               </ul>
             </section>
           </div>
 
-          <TasksRemaining tasks={tasks} updateTasks={updateTasks} />
+          <TasksRemaining tasks={tasks} handleDeleteCompletedTasks={handleDeleteCompletedTasks} />
         </main>
       </div>
     </div>

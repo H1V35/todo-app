@@ -1,4 +1,3 @@
-import { toggleCompleteTask, deleteTask } from '@/api/actions';
 import check from '@/assets/icons/check.svg';
 import checked from '@/assets/icons/checked.svg';
 import trashCan from '@/assets/icons/trash-can.svg';
@@ -6,25 +5,21 @@ import type { Task } from '@/interfaces/task.interface';
 
 interface TaskItemProps {
   task: Task;
-  updateTasks: () => void;
+  taskHandlers: {
+    handleToggleCompleteTask: (task: Task) => void;
+    handleDeleteTask: (task: Task) => void;
+  };
 }
 
-export function TaskItem({ task, updateTasks }: TaskItemProps) {
-  const handleCompleteTask = async () => {
-    await toggleCompleteTask(task._id);
-    updateTasks();
-  };
-
-  const handleDeleteTask = async () => {
-    await deleteTask(task._id);
-    updateTasks();
-  };
-
+export function TaskItem({
+  task,
+  taskHandlers: { handleToggleCompleteTask, handleDeleteTask },
+}: TaskItemProps) {
   return (
     <li className="w-full px-2 sm:px-4 flex flex-col gap-2">
       <div className="flex justify-between items-center gap-8">
         <button
-          onClick={handleCompleteTask}
+          onClick={() => handleToggleCompleteTask(task)}
           className={`flex items-center gap-2 truncate transition-all duration-200 hover:scale-[1.03] ${
             task.isCompleted ? 'opacity-40' : ''
           }`}
@@ -43,7 +38,7 @@ export function TaskItem({ task, updateTasks }: TaskItemProps) {
           </span>
         </button>
 
-        <button onClick={handleDeleteTask} className="flex-shrink-0">
+        <button onClick={() => handleDeleteTask(task)} className="flex-shrink-0">
           <img
             src={trashCan}
             alt="TrashCan Icon"
