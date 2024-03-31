@@ -1,4 +1,4 @@
-export interface Tasks {
+export interface TasksResponse {
   data: Task[];
 }
 

@@ -3,11 +3,12 @@ import { getTasks } from '@/api/actions';
 import { TaskForm } from '@/components/TaskForm';
 import { TasksList } from '@/components/TasksList';
 import { TasksRemaining } from '@/components/TasksRemaining';
-import type { Tasks } from '@/interfaces/task.interface';
+import type { Task } from '@/interfaces/task.interface';
 
 export default function TodoApp() {
-  const [tasks, setTasks] = React.useState<Tasks>();
+  const [tasks, setTasks] = React.useState<Task[]>([]);
   const [isLoading, setIsLoading] = React.useState(false);
+  // const [error, setError] = React.useState();
 
   const updateTasks = async () => {
     await getTasks().then(setTasks);
@@ -16,12 +17,10 @@ export default function TodoApp() {
   React.useEffect(() => {
     (async () => {
       setIsLoading(true);
-      await getTasks().then(setTasks);
+      updateTasks();
       setIsLoading(false);
     })();
   }, []);
-
-  console.log(tasks);
 
   return (
     <div className="h-screen w-screen max-w-[1280px] p-2 sm:p-4 flex justify-center items-center">

@@ -1,4 +1,4 @@
-import { NewTaskData } from '@/interfaces/task.interface';
+import type { NewTaskData } from '@/interfaces/task.interface';
 
 const API_URL = 'http://localhost:5005/api';
 

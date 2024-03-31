@@ -1,20 +1,20 @@
 import { todoApi } from '@/api/todoApi';
-import type { NewTaskData, Task, Tasks } from '@/interfaces/task.interface';
+import type { NewTaskData, Task, TasksResponse } from '@/interfaces/task.interface';
 
 interface DeleteResponse {
   message: string;
 }
 
-export const getTasks = async (): Promise<Tasks> => {
+export const getTasks = async () => {
   try {
-    const response = await todoApi.get<Tasks>({ endpoint: `/tasks` });
-    return response;
+    const { data } = await todoApi.get<TasksResponse>({ endpoint: `/tasks` });
+    return data;
   } catch (e) {
     throw new Error('Error loading tasks');
   }
 };
 
-export const createTask = async ({ name, description }: NewTaskData): Promise<Task> => {
+export const createTask = async ({ name, description }: NewTaskData) => {
   try {
     const response = await todoApi.post<Task>({
       endpoint: `/tasks`,
@@ -26,7 +26,7 @@ export const createTask = async ({ name, description }: NewTaskData): Promise<Ta
   }
 };
 
-export const completeTask = async (task_id: string): Promise<Task> => {
+export const toggleCompleteTask = async (task_id: string) => {
   try {
     const response = await todoApi.post<Task>({ endpoint: `/tasks/${task_id}/complete` });
     return response;
@@ -35,7 +35,7 @@ export const completeTask = async (task_id: string): Promise<Task> => {
   }
 };
 
-export const deleteTask = async (task_id: string): Promise<DeleteResponse> => {
+export const deleteTask = async (task_id: string) => {
   try {
     const response = await todoApi.delete<DeleteResponse>({ endpoint: `/tasks/${task_id}/delete` });
     return response;
@@ -44,7 +44,7 @@ export const deleteTask = async (task_id: string): Promise<DeleteResponse> => {
   }
 };
 
-export const deleteCompletedTasks = async (): Promise<DeleteResponse> => {
+export const deleteCompletedTasks = async () => {
   try {
     const response = await todoApi.delete<DeleteResponse>({ endpoint: `/tasks/delete-completed` });
     return response;

@@ -1,8 +1,8 @@
+import { toggleCompleteTask, deleteTask } from '@/api/actions';
 import check from '@/assets/icons/check.svg';
 import checked from '@/assets/icons/checked.svg';
 import trashCan from '@/assets/icons/trash-can.svg';
 import type { Task } from '@/interfaces/task.interface';
-import { completeTask, deleteTask } from '../api/actions';
 
 interface TaskItemProps {
   task: Task;
@@ -11,7 +11,7 @@ interface TaskItemProps {
 
 export function TaskItem({ task, updateTasks }: TaskItemProps) {
   const handleCompleteTask = async () => {
-    await completeTask(task._id);
+    await toggleCompleteTask(task._id);
     updateTasks();
   };
 
@@ -25,7 +25,9 @@ export function TaskItem({ task, updateTasks }: TaskItemProps) {
       <div className="flex justify-between items-center gap-8">
         <button
           onClick={handleCompleteTask}
-          className="flex items-center gap-2 truncate transition-all duration-200 hover:scale-[1.03]"
+          className={`flex items-center gap-2 truncate transition-all duration-200 hover:scale-[1.03] ${
+            task.isCompleted ? 'opacity-40' : ''
+          }`}
         >
           <img
             src={task.isCompleted ? checked : check}
@@ -50,7 +52,13 @@ export function TaskItem({ task, updateTasks }: TaskItemProps) {
         </button>
       </div>
 
-      <p className="px-12 text-zinc-500 break-words">{task.description}</p>
+      <p
+        className={`px-12 text-zinc-600 break-words ${
+          task.isCompleted ? 'opacity-40 line-through' : ''
+        }`}
+      >
+        {task.description}
+      </p>
     </li>
   );
 }
@@ -75,7 +83,7 @@ export function TaskItemSkeleton({ loading }: { loading?: boolean }) {
         </div>
       </div>
 
-      <p className="px-12 text-zinc-500 break-words">Description</p>
+      <p className="px-12 text-zinc-500 break-words line-through">Description</p>
     </li>
   );
 }

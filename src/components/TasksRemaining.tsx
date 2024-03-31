@@ -1,14 +1,14 @@
 import { deleteCompletedTasks } from '@/api/actions';
-import type { Tasks } from '@/interfaces/task.interface';
+import type { Task } from '@/interfaces/task.interface';
 
 interface TasksRemainingProps {
-  tasks: Tasks | undefined;
+  tasks: Task[];
   updateTasks: () => void;
 }
 
 export function TasksRemaining({ tasks, updateTasks }: TasksRemainingProps) {
-  const incompletedTasks = tasks?.data.filter((task) => !task.isCompleted).length;
-  const hasCompletedTasks = tasks?.data.some((task) => task.isCompleted);
+  const incompletedTasks = tasks.filter((task) => !task.isCompleted).length;
+  const hasCompletedTasks = tasks.some((task) => task.isCompleted);
 
   const handleDeleteCompletedTasks = async () => {
     await deleteCompletedTasks();
@@ -16,7 +16,7 @@ export function TasksRemaining({ tasks, updateTasks }: TasksRemainingProps) {
   };
 
   return (
-    <footer className="h-12 flex items-center justify-between gap-4">
+    <footer className="h-12 ml-2 sm:ml-4 flex items-center justify-between gap-4">
       <p className="text-center">
         {incompletedTasks} task{incompletedTasks !== 1 && 's'} remaining
       </p>
