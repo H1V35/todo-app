@@ -2,6 +2,15 @@ export interface TasksResponse {
   data: Task[];
 }
 
+export interface TaskResponse {
+  data: Task;
+  message: string;
+}
+
+export interface DeleteResponse {
+  message: string;
+}
+
 export interface Task {
   _id: string;
   name: string;

@@ -39,7 +39,9 @@ export function TasksProvider({ children }: TasksProviderProps) {
   const [isLoading, setIsLoading] = React.useState(false);
 
   const updateTasks = React.useCallback(async () => {
-    await getTasks().then(setTasks);
+    await getTasks().then(({ data }) => {
+      if (data) setTasks(data.data);
+    });
   }, []);
 
   const addTask = React.useCallback(
